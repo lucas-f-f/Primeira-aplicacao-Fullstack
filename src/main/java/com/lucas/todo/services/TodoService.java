@@ -19,7 +19,8 @@ public class TodoService {
 	public Todo findById(Integer id) {
 		Optional<Todo> obj = repository.findById(id);
 		//Faça busca do objeto com o número do id
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id:" + id + ", Tipo: " + Todo.class.getName()));
 		//Caso não encontre o Todo retorne nulo
 	}
 
@@ -31,6 +32,32 @@ public class TodoService {
 	public List<Todo> findByClose() {
 		List<Todo> list = repository.findAllClose();
 		return list;
+	}
+
+	public List<Todo> findAll() {
+		List<Todo> list = repository.findAll();
+		return list;
+	}
+
+	public Todo create(Todo obj) {
+		obj.setId(null);
+		return repository.save(obj);
+	}
+
+	public void delete(Integer id) {
+		repository.deleteById(id);
+		
+	}
+
+	public Todo update(Integer id, Todo obj) {
+		//Caso o objeto ja exista faca
+		Todo newObj = findById(id);
+		//Caso nao exista faca
+		newObj.setTitulo(obj.getTitulo());
+		newObj.setDataParaFinalizar(obj.getDataParaFinalizar());
+		newObj.setDesscricao(obj.getDesscricao());
+		newObj.setFinalizado(obj.getFinalizado());
+		return repository.save(newObj); 
 	}
 	
 	
