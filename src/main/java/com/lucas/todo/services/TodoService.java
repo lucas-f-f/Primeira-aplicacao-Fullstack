@@ -40,12 +40,12 @@ public class TodoService {
 	}
 
 	public Todo create(Todo obj) {
-		obj.setId(null);
-		return repository.save(obj);
+		obj.setId(null); // Isso porque  na classe de entidade já existe o configurador de id
+		return repository.save(obj); //persistindo objeto na base de dados
 	}
 
 	public void delete(Integer id) {
-		repository.deleteById(id);
+		repository.deleteById(id); //deletando objeto na base de dados
 		
 	}
 

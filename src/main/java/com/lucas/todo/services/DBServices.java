@@ -15,6 +15,7 @@ public class DBServices {
 	@Autowired
 	private TodoRepository todoRepository;
 
+	//Metodo para instanciar a base de dados sempre que o metodo for chamado
 	public void instanciaBaseDeDados() {
 
 		// Formatar data

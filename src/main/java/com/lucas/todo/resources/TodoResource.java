@@ -19,19 +19,28 @@ import com.lucas.todo.domain.Todo;
 import com.lucas.todo.services.TodoService;
 
 @RestController
-@RequestMapping(value = "/todos")
+@RequestMapping(value = "/todos")// localhost:8080/todos
 public class TodoResource {
 
+	//Instanciando a classe de servicos
 	@Autowired
 	private TodoService service;
 
-	@GetMapping(value = "/{id}")
+	//@GetMapping usado para acessar informacoes
+	@GetMapping
+	public ResponseEntity<List<Todo>> listAll() {
+		List<Todo> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+
+	}
+	
+	@GetMapping(value = "/{id}")// localhost:8080/todos/<id>
 	public ResponseEntity<Todo> findById(@PathVariable Integer id) {
 		Todo obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
-	@GetMapping(value = "/open")
+	@GetMapping(value = "/open")// lista todos em aberto
 	public ResponseEntity<List<Todo>> listOpen() {
 		List<Todo> list = service.findByOpen();
 		return ResponseEntity.ok().body(list);
@@ -43,13 +52,7 @@ public class TodoResource {
 		return ResponseEntity.ok().body(list);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<Todo>> listAll() {
-		List<Todo> list = service.findAll();
-		return ResponseEntity.ok().body(list);
-
-	}
-
+	//@PostMapping utilizado para inserir informacoes
 	@PostMapping
 	public ResponseEntity<Todo> create(@RequestBody Todo obj){
 		obj = service.create(obj);
