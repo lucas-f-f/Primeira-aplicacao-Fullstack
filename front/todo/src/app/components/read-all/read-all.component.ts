@@ -45,7 +45,7 @@ export class ReadAllComponent implements OnInit {
       }
     }
   }*/
-
+// Metodo delete
 delete(id: any): void{
   this.service.delete(id).subscribe((resposta) =>{
     if (resposta ===null){
